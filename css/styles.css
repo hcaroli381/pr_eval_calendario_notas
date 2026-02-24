@@ -1,0 +1,38 @@
+body{
+    background-color: beige;
+    margin: 10px;
+    text-align: center;
+    font-size: 70px;
+}
+
+
+.container{
+    display : grid;
+    grid-template-columns: repeat(4,1fr);
+    gap : 10px;
+
+}
+.item{
+    border: solid 2px;
+    text-transform: uppercase;
+    text-align: center;
+    background-color: azure;
+}
+h1{
+    text-align: center;
+}
+.notasAdded{
+    color: greenyellow;
+}
+
+
+button{
+    color: lightskyblue;
+    text-align: center;
+    font-size: 40px;
+}
+
+a{
+    text-decoration: none;
+    
+}
