@@ -7,7 +7,6 @@ const listaNotas = document.querySelector("#listaNotas");
 const tituloMes = document.querySelector("#tituloMes");
 const form = document.querySelector("#frmNota");
 
-lstNotas = [];
 
 console.log(params)
 console.log(mes)
@@ -32,19 +31,21 @@ function onFormSubmit(event){
     }
 
     lsNotaJson.push(jsonNota);
+    listarNota(jsonNota);
     localStorage.setItem("calendarioNota",JSON.stringify(lsNotaJson));
     
-    
-    console.log(titulo);
-    console.log(descripcion);
-    console.log(localStorage.getItem("calendarioNota"));
+    form.reset();
 }
 
 function getMonth(intMes){
     lsMeses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
     return lsMeses[intMes];
 };
-
-tituloMes.innerHTML = getMonth(mes);
+function listarNota(nota) {
+    const nuevaLista = document.createElement('li');
+    nuevaLista.innerHTML = `<b>${nota.titulo}</b> ${nota.descripcion} <button id="btnEditarNota" type="button">Editar nota</button> <button id="btnEliminarNota" type="button">Eliminar nota</button>`;
+    listaNotas.appendChild(nuevaLista);
+}
+tituloMes.innerHTML = `Notas de ${getMonth(mes)}`;
 
 
