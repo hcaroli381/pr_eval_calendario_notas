@@ -12,7 +12,8 @@ console.log(params)
 console.log(mes)
 
 
-form.addEventListener("submit",onFormSubmit);
+form.addEventListener("submit", onFormSubmit);
+
 function onFormSubmit(event){
     event.preventDefault();
     const data = new FormData(event.target);
@@ -44,17 +45,30 @@ function getMonth(intMes){
 function listarNota(nota) {
     const nuevaLista = document.createElement('li');
     nuevaLista.innerHTML = `<b>${nota.titulo}</b> ${nota.descripcion}`;
-    nuevaLista.appendChild(crearBtnEliminar(nuevaLista));
+    nuevaLista.appendChild(crearBtnEliminar(nuevaLista,nota));
     listaNotas.appendChild(nuevaLista);
 }
-function crearBtnEliminar(nuevaLista) {
+function crearBtnEliminar(nuevaLista,nota) {
     const btnEliminar = document.createElement('button');
      btnEliminar.textContent = 'Eliminar nota';
     btnEliminar.type = 'button';
     btnEliminar.addEventListener('click', () => {
         nuevaLista.remove();
+        eliminarNotaStorage(nota);
     });
     return btnEliminar;
+}
+
+function eliminarNotaStorage(nota) {
+    let notaBorrado = localStorage.getItem("calendarioNota");
+    notaBorrado = JSON.parse(notaBorrado);
+    for (let i = 0; i < notaBorrado.length; i++) {
+        if ((notaBorrado[i].mes === nota.mes)&& (notaBorrado[i].titulo === nota.titulo)&&(notaBorrado[i].descripcion === nota.descripcion)) {
+            
+        }
+    }
+    
+localStorage.setItem("calendarioNota",JSON.stringify(notaBorrado));
 }
 
 //hace que las notas esten en su mes correspondiente
@@ -67,6 +81,8 @@ function cargarNotas() {
             }
         }
     }
+    
+
 }
 tituloMes.innerHTML = `Notas de ${getMonth(mes)}`;
 cargarNotas();
