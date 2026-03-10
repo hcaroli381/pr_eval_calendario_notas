@@ -43,10 +43,19 @@ function getMonth(intMes){
 };
 function listarNota(nota) {
     const nuevaLista = document.createElement('li');
-    nuevaLista.innerHTML = `<b>${nota.titulo}</b> ${nota.descripcion} <button id="btnEditarNota" type="button">Editar nota</button> <button id="btnEliminarNota" type="button">Eliminar nota</button>`;
+    nuevaLista.innerHTML = `<b>${nota.titulo}</b> ${nota.descripcion}`;
+    nuevaLista.appendChild(crearBtnEliminar(nuevaLista));
     listaNotas.appendChild(nuevaLista);
 }
-tituloMes.innerHTML = `Notas de ${getMonth(mes)}`;
+function crearBtnEliminar(nuevaLista) {
+    const btnEliminar = document.createElement('button');
+     btnEliminar.textContent = 'Eliminar nota';
+    btnEliminar.type = 'button';
+    btnEliminar.addEventListener('click', () => {
+        nuevaLista.remove();
+    });
+    return btnEliminar;
+}
 
 //hace que las notas esten en su mes correspondiente
 function cargarNotas() {
@@ -59,4 +68,5 @@ function cargarNotas() {
         }
     }
 }
+tituloMes.innerHTML = `Notas de ${getMonth(mes)}`;
 cargarNotas();
