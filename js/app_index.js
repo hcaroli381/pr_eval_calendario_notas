@@ -7,6 +7,7 @@ const listaMeses = document.querySelectorAll(".item");
 
 console.log(listaMeses);
 
+//TODO : estilo a meses pares por probar que funciona
 function aplicarEstilosMeses(){
     for(let i = 0;i < listaMeses.length ; i++ ){
         if(i%2 == 0){

@@ -48,4 +48,15 @@ function listarNota(nota) {
 }
 tituloMes.innerHTML = `Notas de ${getMonth(mes)}`;
 
-
+//hace que las notas esten en su mes correspondiente
+function cargarNotas() {
+    if (localStorage.getItem("calendarioNota") != null) {
+        const cargaNotas = JSON.parse(localStorage.getItem("calendarioNota"));
+        for (let i = 0; i < cargaNotas.length; i++) {
+            if (cargaNotas[i].mes === mes) {
+                listarNota(cargaNotas[i]);
+            }
+        }
+    }
+}
+cargarNotas();
