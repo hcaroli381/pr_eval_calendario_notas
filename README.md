@@ -17,8 +17,8 @@ Al aparecer una nota junto a ellalo harán dos botones,de borrar y editar.
 Borrar nos pedirá una *confirmación*
 ![alt text](./assets/image3.png)
 Editar nos mandará de nuevo a titulo y descripción con los valores de la nota ya introducidos, si refrescamos sin cambiar la nota aparecerá de nuevo como si nada.
-![alt text](.assets/image4.png)
-![alt text](.assets/image5.png)
+![alt text](./assets/image4.png)
+![alt text](./assets/image5.png)
 Volver al calendario nos mandará de nuevo a la pagina principal.
 
 
