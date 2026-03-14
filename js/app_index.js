@@ -8,9 +8,9 @@ const listaMeses = document.querySelectorAll(".item");
 console.log(listaMeses);
 
 //TODO : estilo a meses pares por probar que funciona
-function aplicarEstilosMeses(){
-    for(let i = 0;i < listaMeses.length ; i++ ){
-        if(i%2 == 0){
+function aplicarEstilosMeses() {
+    for (let i = 0; i < listaMeses.length; i++) {
+        if (i % 2 == 0) {
             listaMeses[i].classList.add("notasAdded");
         }
     }
@@ -27,10 +27,13 @@ btnLimpiarCalendario.addEventListener("click", () => {
 });
 
 btnListaNotas.addEventListener("click", () => {
-    listaNotas.innerHTML = "";
-    notasGlobales.forEach(n => {
-        const item = document.createElement("li");
-        item.textContent = `Mes ${n.mes + 1}: ${n.titulo}`;
-        listaNotas.appendChild(item);
-    });
+
+    if (localStorage.getItem("calendarioNota") != null) {
+        const cargaNotas = JSON.parse(localStorage.getItem("calendarioNota"));
+        for (let i = 0; i < cargaNotas.length; i++) {
+            if (cargaNotas[i].mes === mes) {
+                listarNota(cargaNotas[i]);
+            }
+        }
+    }
 });

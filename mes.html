@@ -11,17 +11,20 @@
 
 <body>
     <h1 id="tituloMes"></h1>
-    
+
     <section id="frmSection">
-        <form id="frmNota" >
-            <input id="titulo" name = "titulo" type="text" required minlength="2">
-            <input id="descripcion" name ="descripcion" type="text" required minlength="2" class = descripcion size="50">
+        <form id="frmNota">
+            <p>Titulo</p>
+            <input id="titulo" name="titulo" type="text" required minlength="2" size="25">
+            <p>Descripción</p>
+            <input id="descripcion" name="descripcion" type="text" required minlength="2" class=descripcion
+                size="50"><br>
             <button type="submit" id="btnAddNota">Añadir nota</button>
         </form>
-        
+
     </section>
     <ul id="listaNotas">
-    
+
     </ul>
     <a href="./index.html"><button id="btnCalendarioReturn" type="button">Volver al calendario</button></a>
 </body>

@@ -14,62 +14,88 @@ console.log(mes)
 
 form.addEventListener("submit", onFormSubmit);
 
-function onFormSubmit(event){
+function onFormSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.target);
     const titulo = data.get("titulo");
     const descripcion = data.get("descripcion");
 
-    
-    const jsonNota = {"titulo":titulo, "descripcion":descripcion, "mes":mes};
+
+    const jsonNota = { "titulo": titulo, "descripcion": descripcion, "mes": mes };
 
     //extraigo la lista de notas de localstorage
     const lsNotaStr = localStorage.getItem("calendarioNota");
-    let lsNotaJson  = [];
-    
-    if (lsNotaStr != null){
+    let lsNotaJson = [];
+
+    if (lsNotaStr != null) {
         lsNotaJson = JSON.parse(lsNotaStr);
     }
 
     lsNotaJson.push(jsonNota);
     listarNota(jsonNota);
-    localStorage.setItem("calendarioNota",JSON.stringify(lsNotaJson));
-    
+    localStorage.setItem("calendarioNota", JSON.stringify(lsNotaJson));
+
     form.reset();
 }
 
-function getMonth(intMes){
-    lsMeses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+function getMonth(intMes) {
+    lsMeses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
     return lsMeses[intMes];
 };
 function listarNota(nota) {
     const nuevaLista = document.createElement('li');
     nuevaLista.innerHTML = `<b>${nota.titulo}</b> ${nota.descripcion}`;
-    nuevaLista.appendChild(crearBtnEliminar(nuevaLista,nota));
+    nuevaLista.appendChild(crearBtnEliminar(nuevaLista, nota));
+    nuevaLista.appendChild(crearBtnEditar(nuevaLista, nota));
     listaNotas.appendChild(nuevaLista);
 }
-function crearBtnEliminar(nuevaLista,nota) {
+function crearBtnEliminar(nuevaLista, nota) {
     const btnEliminar = document.createElement('button');
-     btnEliminar.textContent = 'Eliminar nota';
+    btnEliminar.textContent = 'Eliminar nota';
     btnEliminar.type = 'button';
     btnEliminar.addEventListener('click', () => {
-        nuevaLista.remove();
-        eliminarNotaStorage(nota);
+        if (confirm("Estas seguro?")) {
+            nuevaLista.remove();
+            eliminarNotaStorage(nota);
+        }
+
     });
     return btnEliminar;
 }
+function crearBtnEditar(nuevaLista, nota) {
+    const btnEditar = document.createElement('button');
+    btnEditar.textContent = 'Editar';
+    btnEditar.type = 'button';
+    btnEditar.addEventListener('click', () => {
+        editarNota(nuevaLista, nota);
+    });
+    return btnEditar;
+}
 
 function eliminarNotaStorage(nota) {
-    let notaBorrado = localStorage.getItem("calendarioNota");
-    notaBorrado = JSON.parse(notaBorrado);
-    for (let i = 0; i < notaBorrado.length; i++) {
-        if ((notaBorrado[i].mes === nota.mes)&& (notaBorrado[i].titulo === nota.titulo)&&(notaBorrado[i].descripcion === nota.descripcion)) {
-            notaBorrado[i] = "";
+
+    let listaNotas = localStorage.getItem("calendarioNota");
+    listaNotas = JSON.parse(listaNotas);
+    for (let i = 0; i < listaNotas.length; i++) {
+        if ((listaNotas[i].mes === nota.mes) && (listaNotas[i].titulo === nota.titulo) && (listaNotas[i].descripcion === nota.descripcion)) {
+            listaNotas[i] = "";
         }
     }
-    
-localStorage.setItem("calendarioNota",JSON.stringify(notaBorrado));
+
+    localStorage.setItem("calendarioNota", JSON.stringify(listaNotas));
 }
+function editarNota(nuevaLista, nota) {
+    const tituloEditar = form.querySelector('input[name="titulo"]');
+    const descripcionEditar = form.querySelector('input[name = "descripcion"]');
+
+    tituloEditar.value = nota.titulo;
+    descripcionEditar.value = nota.descripcion;
+    nuevaLista.remove();
+    eliminarNotaStorage();
+    listaNotas.innerHTML = "";
+    cargarNotas();
+}
+
 
 //hace que las notas esten en su mes correspondiente
 function cargarNotas() {
@@ -81,7 +107,7 @@ function cargarNotas() {
             }
         }
     }
-    
+
 
 }
 tituloMes.innerHTML = `Notas de ${getMonth(mes)}`;
