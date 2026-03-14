@@ -78,7 +78,7 @@ function eliminarNotaStorage(nota) {
     listaNotas = JSON.parse(listaNotas);
     for (let i = 0; i < listaNotas.length; i++) {
         if ((listaNotas[i].mes === nota.mes) && (listaNotas[i].titulo === nota.titulo) && (listaNotas[i].descripcion === nota.descripcion)) {
-            listaNotas[i] = "";
+            listaNotas.splice(i, 1);
         }
     }
 

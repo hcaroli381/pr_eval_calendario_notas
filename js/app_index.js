@@ -1,5 +1,4 @@
-const params = new URLSearchParams(window.location.search);
-const mes = Number(params.get("mes"));
+
 const listaNotas = document.querySelector("#listaNotas");
 const btnListaNotas = document.querySelector("#btnListaNotas");
 const btnLimpiarCalendario = document.querySelector("#btnLimpiarCalendario");
@@ -9,31 +8,28 @@ console.log(listaMeses);
 
 //TODO : estilo a meses pares por probar que funciona
 function aplicarEstilosMeses() {
-    for (let i = 0; i < listaMeses.length; i++) {
-        if (i % 2 == 0) {
-            listaMeses[i].classList.add("notasAdded");
-        }
-    }
-}
+    let notasGenerales = "";
 
-let notasGlobales = JSON.parse(localStorage.getItem("calendarioNotas")) || [];
+    notasGenerales = JSON.parse(localStorage.getItem("calendarioNota")) || [];
+    console.log(notasGenerales);
+
+    for (let i = 0; i < listaMeses.length; i++) {
+        for (let j = 0; j < notasGenerales.length; j++) {
+            if (notasGenerales[i] !== null) {
+                listaMeses[i].classList.add("notasAdded");
+            }
+
+        }
+
+    }
+};
+
+let notasGlobales = JSON.parse(localStorage.getItem("calendarioNota")) || [];
 aplicarEstilosMeses();
 
 btnLimpiarCalendario.addEventListener("click", () => {
     if (confirm("¿Estás seguro de borrar TODAS las notas?")) {
-        localStorage.removeItem("calendarioNotas");
+        localStorage.removeItem("calendarioNota");
         location.reload();
-    }
-});
-
-btnListaNotas.addEventListener("click", () => {
-
-    if (localStorage.getItem("calendarioNota") != null) {
-        const cargaNotas = JSON.parse(localStorage.getItem("calendarioNota"));
-        for (let i = 0; i < cargaNotas.length; i++) {
-            if (cargaNotas[i].mes === mes) {
-                listarNota(cargaNotas[i]);
-            }
-        }
     }
 });
