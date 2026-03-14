@@ -11,11 +11,11 @@ function aplicarEstilosMeses() {
     let notasGenerales = "";
 
     notasGenerales = JSON.parse(localStorage.getItem("calendarioNota")) || [];
-    console.log(notasGenerales);
+
 
     for (let i = 0; i < listaMeses.length; i++) {
         for (let j = 0; j < notasGenerales.length; j++) {
-            if (notasGenerales[i] !== null) {
+            if (notasGenerales[j] !== null) {
                 listaMeses[i].classList.add("notasAdded");
             }
 
