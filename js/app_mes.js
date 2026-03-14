@@ -91,7 +91,7 @@ function editarNota(nuevaLista, nota) {
     tituloEditar.value = nota.titulo;
     descripcionEditar.value = nota.descripcion;
     nuevaLista.remove();
-    eliminarNotaStorage();
+    eliminarNotaStorage(nota);
     listaNotas.innerHTML = "";
     cargarNotas();
 }
